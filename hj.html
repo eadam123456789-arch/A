@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى أغلى الناس</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: url('main_bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* تنسيق العداد */
+        #timer {
+            background: rgba(216, 27, 96, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto;
+            display: inline-block;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        .timer-unit { margin: 0 10px; display: inline-block; }
+        .timer-unit span { display: block; font-size: 1.8rem; font-weight: bold; }
+
+        /* تنسيق الصور */
+        .photo-card {
+            margin: 30px auto;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 10px;
+            color: #333;
+        }
+        .photo-card img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .photo-card p { font-size: 1.1rem; font-weight: bold; padding: 10px 0; margin: 0; }
+
+        /* الزرار والرسالة */
+        .btn {
+            background: #d81b60;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 20px;
+        }
+        .btn:hover { transform: scale(1.1); background: #ad1457; }
+
+        #loveMessage {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            white-space: pre-line; /* عشان يحافظ على المسافات */
+        }
+    </style>
+</head>
+<body onclick="playMusic()">
+
+    <div class="overlay">
+        <audio id="music" loop>
+            <source src="music.mp3" type="audio/mpeg">
+        </audio>
+
+        <h1>كل ثانية وانتي معايا..</h1>
+
+        <div id="timer">
+            <div class="timer-unit"><span id="years">0</span>سنين</div>
+            <div class="timer-unit"><span id="months">0</span>شهور</div>
+            <div class="timer-unit"><span id="days">0</span>أيام</div>
+            <div class="timer-unit"><span id="hours">0</span>ساعات</div>
+            <div class="timer-unit"><span id="minutes">0</span>دقائق</div>
+            <div class="timer-unit"><span id="seconds">0</span>ثواني</div>
+        </div>
+
+        <div class="photo-card">
+            <img src="photo1.jpg" alt="صورة 1">
+            <p>كل دقيقة وانتي معايا وعمري</p>
+        </div>
+
+        <div class="photo-card">
+            <img src="photo2.jpg" alt="صورة 2">
+            <p>كل يوم وانا معاكي</p>
+        </div>
+
+        <button class="btn" id="msgBtn" onclick="showMessage()">دوسي هنا</button>
+
+        <div id="loveMessage">
+            جت خلت أيامي تحفة وجودها لوحده بيسعدني أوووي ربنا يخليكي ليا ينور عيني ومبحر منيش منك أبداً يارب يحبك
+            أوبديتي أغلى ما ليا أفضل شخص وأحن شخص مشفوفو بحبها موتست أحمل ضحكها لما شوفتك أول مرة وكانت أجمل صدفة في حياتي كلها ربنا ميحرمنيش منك أبداً يارب انتي عندي كل حاجة انتي حياتي كلها ونور عيني وحته مني وعمري كله
+            أنا مش عارف من غيرك هعيش ازاي حرفياً انتي مش حد عادي
+            انتي أفضل وأهم شخص عندي وعمر محد هياخد ربع حبي ليكي ولا هياخد مكانك نهائي عشان انتي حد كريس وأنا بحبك أكتر من أي حد أنا من غيرك ضايع بحب ملامحك أوووي
+            يكفيني بس كلامك أوووي بحب أشوفك أووبسسي حرفياً 
+            
+            <br>
+            <button class="btn" onclick="window.location.href='https://youtu.be/SKfi0V8NRhQ?si=63VMbJ9ODgxVgNX_'">دوسي هنا</button>
+        </div>
+    </div>
+
+    <script>
+        // تشغيل الموسيقى
+        function playMusic() {
+            var audio = document.getElementById("music");
+            audio.play();
+        }
+
+        // إظهار الرسالة
+        function showMessage() {
+            document.getElementById("loveMessage").style.display = "block";
+            document.getElementById("msgBtn").style.display = "none";
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        // حساب الوقت من 28 مارس
+        const startDate = new Date("March 28, 2024 00:00:00").getTime(); // غير السنة لو حبيت
+
+        setInterval(function() {
+            const now = new Date().getTime();
+            const diff = now - startDate;
+
+            const seconds = Math.floor((diff / 1000) % 60);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 30);
+            const months = Math.floor((diff / (1000 * 60 * 60 * 24 * 30.44)) % 12);
+            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+
+            document.getElementById("years").innerHTML = years;
+            document.getElementById("months").innerHTML = months;
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة القفل - يا حنين</title>
+    
+    <style>
+        /* --- قسم الـ CSS --- */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            /* تم تعديل هذا الجزء لاستخدام صورة خلفية */
+            /* اسم ملف الصورة المطلوبة هو: romantic_bg.jpg */
+            background-image: url('romantic_bg.jpg'); 
+            background-size: cover; /* تغطية الشاشة بالكامل */
+            background-position: center; /* توسط الصورة */
+            background-repeat: no-repeat; /* عدم تكرار الصورة */
+            
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* حاوية القلوب المتحركة */
+        .heart-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .login-box {
+            /* تفتيح الخلفية الزجاجية قليلاً لتتناسب مع الصور */
+            background: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(10px); /* تأثير الزجاج الضبابي */
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            z-index: 10;
+            width: 320px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        h1 { color: #880e4f; margin-bottom: 10px; text-shadow: 1px 1px 2px rgba(255,255,255,0.5); }
+        p { color: #333; font-size: 18px; margin: 5px 0; font-weight: 500;}
+        .hint { color: #ad1457; font-weight: bold; margin-bottom: 25px; }
+
+        input {
+            width: 85%;
+            padding: 12px 15px;
+            border-radius: 30px;
+            border: 2px solid rgba(255,255,255,0.7);
+            outline: none;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 16px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.8);
+        }
+
+        input:focus { border-color: #ff80ab; background: rgba(255,255,255,1); }
+
+        button {
+            background: linear-gradient(to right, #ff4081, #c2185b);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(194, 24, 91, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(194, 24, 91, 0.5);
+        }
+
+        /* أنيميشن القلوب الطائرة */
+        .falling-heart {
+            position: absolute;
+            color: rgba(216, 27, 96, 0.6);
+            font-size: 20px;
+            user-select: none;
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heart-bg" id="heartContainer"></div>
+
+    <div class="login-box">
+        <h1>مرحباً بيكي</h1>
+        <p>لازم باسوورد عشان تعدي</p>
+        <p class="hint">الباسورد يا حنين هو "love"</p>
+        
+        <input type="password" id="passInput" placeholder="اكتبي كلمة السر هنا...">
+        <br>
+        <button onclick="validate()">دخول</button>
+    </div>
+
+    <script>
+        /* --- قسم الـ JavaScript --- */
+        
+        function validate() {
+            const input = document.getElementById("passInput").value;
+            // الباسورد المطلوب هو love
+            if (input.toLowerCase() === "love") {
+                window.location.href = "hj.html"; 
+            } else {
+                alert("الباسورد غلط يا حور.. حاولي تاني ❤️");
+            }
+        }
+
+        // إنشاء قلوب عشوائية في الخلفية
+        function createHeart() {
+            const container = document.getElementById('heartContainer');
+            if (!container) return; // تأكد من وجود الحاوية
+            
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.innerHTML = '❤️';
+            
+            // أماكن عشوائية وأحجام مختلفة
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            
+            // سرعة عشوائية للأنيميشن
+            const duration = Math.random() * 3 + 4; 
+            heart.style.animationDuration = duration + 's';
+            
+            container.appendChild(heart);
+
+            // حذف القلب بعد ما يخلص حركته
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // توليد قلب كل 300 مللي ثانية
+        setInterval(createHeart, 300);
+    </script>
+
+</body>
+</html>
